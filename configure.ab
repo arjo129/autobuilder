@@ -1,0 +1,1 @@
+{"targets":[{"name":"testprj1","version":"0.0.1","libs":[{"opencv":"ge3.0.0"},{"libgut":"ge7.0"}]}]}

@@ -1,0 +1,3 @@
+# Autobuild.py
+
+Autobuild.py is a c/c++ building and unit test framework. It automatically resolves dependencies just from a json configuration fileconfig.ab. It is equiped with unit testing facilities. This was born out of my frustration of using cmake and autotools. I love autotools workflows. I hate cmake. But what is most frustrating is that if I want to build a quick prototype or proof of concept in c++ I either have to use third rate ides (_ahem_ Xcode _cough_ _cough_) with complex configurations everytime I add a new library or I nneed to waste time writing cmake files or messing with autotools.  
