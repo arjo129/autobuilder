@@ -19,9 +19,9 @@ with open("configure.ab") as data_file:
 	    targets = data["targets"]
 	    for t in targets:
 		    for test in t["tests"]:
-			    print test
-			    testmethods = autotester.scan_testfile(test)
-			    print testmethods
+			    testmethods,benchmarks = autotester.scan_testfile(test)
+			    autotester.genTestHeaders(testmethods)
+			    autotester.genBMHeaders(benchmarks)
 		    libraries = t["libs"]
 		    for lib in libraries:
 			    l,v = lib.items()[0]
