@@ -8,19 +8,21 @@ def scan_testfile(file):
 		potentialtest = False
 		potentialbenchmark = False
 		for c in line:
+			#print lasttoken
 			if c=='{':
-				braces++
+				braces = braces + 1
 			if c=='}':
-				braces--	
-			if c in set(" ({}*)_[]&+-/#"):
+				braces = braces - 1	
+			if c in set(" ({}*)[]&+-/#"):
 				if braces==0 and lasttoken=="_test_results_t" and commentoff:
 					potentialtest = True
+					#print "found test"
 				if braces==0 and lasttoken=="_benchmark_timer_t" and commentoff:
 					potentialbenchmark = True
-				if braces==0 and potentialtest and lasttoken.startsWith("TEST_"):
+				if braces==0 and potentialtest and lasttoken.startswith("TEST_"):
 					listOfTests.append(lasttoken)
 					potentialtest = False
-				if braces==0 and potentialbenchmark and lasttoken.startsWith("BENCHMARK_"):
+				if braces==0 and potentialbenchmark and lasttoken.startswith("BENCHMARK_"):
 					listOfBenchMarks.append(lasttoken)
 					potentialbenchmark = False
 				lasttoken=""

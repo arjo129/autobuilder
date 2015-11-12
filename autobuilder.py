@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-import sys, json
+import sys, json, autotester
 
 def splitverno(version):
 	comparator = ""
@@ -18,6 +18,10 @@ with open("configure.ab") as data_file:
 	    #projectname = data["projectname"];
 	    targets = data["targets"]
 	    for t in targets:
+		    for test in t["tests"]:
+			    print test
+			    testmethods = autotester.scan_testfile(test)
+			    print testmethods
 		    libraries = t["libs"]
 		    for lib in libraries:
 			    l,v = lib.items()[0]

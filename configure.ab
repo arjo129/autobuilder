@@ -1,1 +1,1 @@
-{"targets":[{"name":"testprj1","version":"0.0.1","libs":[{"opencv":"ge3.0.0"},{"libcurl":"ge7.0"}],"include":[],"tests":"example_test.c"}]}
+{"targets":[{"name":"testprj1","version":"0.0.1","libs":[{"opencv":"ge3.0.0"},{"libcurl":"ge7.0"}],"include":[],"tests":["example_test.c"]}]}

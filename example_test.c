@@ -1,5 +1,5 @@
 #include "autotest/unittest.h"
 
-_test_result_t TEST_unittest_functionality(){
+_test_results_t TEST_unittest_functionality(){
 	return TEST_PASSED;
 }
