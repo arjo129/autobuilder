@@ -45,4 +45,13 @@ def genBMHeaders(benchmarks):
 	headerfile.close()
 
 def genMainTestFile(tests,benchmarks):
-	main = open("testsmain.c","w");
+	main = open("testsmain.c","w")
+	main.write("include \"tests.h\"")
+	main.write("int main(int argc, char** argv) {")
+	main.write("	_result_reporter_t rep;")
+	for t in tests:
+		main.write("_report_results(rep,"+t+"());")
+	for b in benchmarks:
+		main.write("_report_results(rep,"+b+"());")
+	main.close()
+
