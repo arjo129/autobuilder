@@ -40,6 +40,7 @@ def genTestHeaders(tests):
 
 def genBMHeaders(benchmarks):
 	headerfile = open("benchmark.h","w");
+	headerfile.write("#include \"test_includes.h\"")
 	for b in benchmarks:
 		headerfile.write("\n_benchmark_timer_t "+t+"(benchmark_timer_t t);")
 	headerfile.close()
