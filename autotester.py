@@ -31,7 +31,7 @@ def scan_testfile(file):
 	return listOfTests, listOfBenchMarks
 
 def genTestHeaders(tests):
-	headerfile = open("tests.h","w")
+	headerfile = open("tests/tests.h","w")
 	headerfile.write("#include <autobuildpy/autotester>");
 	headerfile.write("#include \"benchmarks.h\"")
 	for t in tests:
@@ -39,14 +39,14 @@ def genTestHeaders(tests):
 	headerfile.close()
 
 def genBMHeaders(benchmarks):
-	headerfile = open("benchmark.h","w");
+	headerfile = open("tests/benchmark.h","w");
 	headerfile.write("#include \"test_includes.h\"")
 	for b in benchmarks:
 		headerfile.write("\n_benchmark_timer_t "+t+"(benchmark_timer_t t);")
 	headerfile.close()
 
 def genMainTestFile(tests,benchmarks):
-	main = open("testsmain.c","w")
+	main = open("tests/testsmain.c","w")
 	main.write("include \"tests.h\"")
 	main.write("int main(int argc, char** argv) {")
 	main.write("	_result_reporter_t rep;")
