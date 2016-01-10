@@ -12,6 +12,10 @@ class configuration:
 	def __init__(self):
 		self.libraries = []
 		self.programs = []
+		self.cliOptions = []
+		self.embeddedproj = false
+	def enableEmbedded():
+		self.embeddedproj = true
 	def addLibrary(lib, version):
 		libObject = (lib,version)
 		self.libraries.add(libObject)
@@ -46,6 +50,7 @@ class configuration:
 		argparser.write("#!/bin/bash")
 		argparser.write("hash perl 2>/dev/null || { echo >&2 \"./configure: Could not find perl. Aborting.\"; exit 1; }")
 		argparser.write("hash sed 2>/dev/null ||{ echo >&2 \"./configure: Could not find sed  Aborting.\"; exit 1; }")
+		argparser.write("hash cc 2>/dev/null ||{ echo >&2 \"./configure: Could not find valid host compiler Autotest Tests cannot run.\"; exit 1; }")
 		argparser.write("for i in \"$@\"\ndo")
 		argparser.write("case $i in")
 		argparser.write("-h|--help)\necho \"Autobuild.py generated script\"\n;;")

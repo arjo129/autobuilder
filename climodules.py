@@ -1,6 +1,10 @@
-import autotest, os
-cmdlets = {'init': initNewProject}
+import autotest, os, json
+cmdlets = {'init': initNewProject , 'add-pkg:': addPkg}
+
+def addPkg(packagename):
+	
 def initNewProject():
+	schema = {"projectname": raw_input('Name Of Project:')}
 	try:
 		os.makedirs("src")
 	except OSError:
@@ -9,8 +13,8 @@ def initNewProject():
 	testingenabled = raw_input('Enable Testing (y/n):')
 	if testingenabled == "y":
 		try:
-			os.makedirs("test")
+			os.makedirs("tests")
 		except:
-			if not os.path.isdir("src"):
+			if not os.path.isdir("tests"):
 				raise
-	
+		schema["tests"] = []
