@@ -87,6 +87,8 @@ class testmodule:
 			main.write("\t"+memtest+"();")
 			main.write("\treturn 0;")
 			main.write("}")
+			main.close()
+			
 def scan_testfile(file):
 	listOfTests = []
 	listOfBenchMarks = []
