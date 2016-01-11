@@ -1,3 +1,73 @@
+class testdesc:
+	def __init__(self):
+		self.name = ""
+		self.tests = ""
+		self.result = ""
+		self.type = ""
+class testmodule:
+	def __init__(self):
+		self.listOfTests = []
+		self.listOfValgrind = []
+		self.listOfBenchMarks = []
+		self.includes = []
+	def scan_testfile(file):
+		comment = false
+		braces = 0
+		lastlinemmode = False
+		for line in open(file):
+			lasttoken = ""
+			inlinecomment = False
+			potentialtest = False
+			potentialbenchmark = False
+			potentialmemtest = False
+			potentialcomment = False
+			macroisinclude = False
+			for c in line:
+				if potentialcomment:
+					potentialcomment = False
+					if c == '*':
+						comment = True
+					if c == '/':
+						inlinecomment = True
+				if not comment and not inlinecomment:
+					if c == '{':
+						braces = braces + 1
+					if c == '}':
+						braces = braces - 1
+					if c == '/':
+						potentialcomment = True
+					if c == '#':
+						#TODO: Deal with multiline macros
+						macromode = True
+					if c in set(" \"'<>({}*)=[]&+-\/#"):
+						# Process last token here
+						if braces==0 and lasttoken=="_test_results_t" and commentoff:
+							potentialtest = True
+						if braces==0 and lasttoken=="_valgrind_results_t" and commentoff:
+							potentialmemtest = True
+							#print "found test"
+						if braces==0 and lasttoken=="_benchmark_timer_t" and commentoff:
+							potentialbenchmark = True
+						if braces==0 and potentialmemtest and lasttoken.startswith("LEAK_TEST_"):
+							self.listOfValgrind.append(lasttoken)
+							potentialmemtest = False
+						if braces==0 and potentialtest and lasttoken.startswith("TEST_"):
+							self.listOfTests.append(lasttoken)
+							potentialtest = False
+						if braces==0 and potentialbenchmark and lasttoken.startswith("BENCHMARK_"):
+							self.listOfBenchMarks.append(lasttoken)
+							potentialbenchmark = False
+						if macromode:
+							if not macroisinclude:
+								if lasttoken == "include":
+									macroisinclude = True
+							if macroisinclude and lasttoken is not
+						lasttoken = ""
+				if comment:
+					if c == '*':
+						potentialcomment = True
+					if potentialcomment and c == '/':
+						comment = False
 def scan_testfile(file):
 	listOfTests = []
 	listOfBenchMarks = []
@@ -60,7 +130,7 @@ def genMemTests(tests, includes):
 		tname = test.strip("(){} ")
 		mainfile = open("tests/.bm/"+tname+".cpp")
 		for test in includes:
-			
+
 def genMainTestFile(tests,benchmarks):
 	main = open("tests/testsmain.c","w")
 	main.write("include \"tests.h\"")
