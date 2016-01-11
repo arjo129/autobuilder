@@ -1,16 +1,14 @@
-class testdesc:
-	def __init__(self):
-		self.name = ""
-		self.tests = ""
-		self.result = ""
-		self.type = ""
+import os
 class testmodule:
 	def __init__(self):
 		self.listOfTests = []
 		self.listOfValgrind = []
 		self.listOfBenchMarks = []
 		self.includes = []
+		self.modulename = ""
 	def scan_testfile(file):
+		name = os.path.basename(file)
+		self.modulename = os.path.splittext(name)[0]
 		comment = false
 		braces = 0
 		lastlinemmode = False
@@ -21,7 +19,7 @@ class testmodule:
 			potentialbenchmark = False
 			potentialmemtest = False
 			potentialcomment = False
-			macroisinclude = False
+			potentialmacro = False
 			for c in line:
 				if potentialcomment:
 					potentialcomment = False
@@ -36,9 +34,6 @@ class testmodule:
 						braces = braces - 1
 					if c == '/':
 						potentialcomment = True
-					if c == '#':
-						#TODO: Deal with multiline macros
-						macromode = True
 					if c in set(" \"'<>({}*)=[]&+-\/#"):
 						# Process last token here
 						if braces==0 and lasttoken=="_test_results_t" and commentoff:
@@ -57,17 +52,41 @@ class testmodule:
 						if braces==0 and potentialbenchmark and lasttoken.startswith("BENCHMARK_"):
 							self.listOfBenchMarks.append(lasttoken)
 							potentialbenchmark = False
-						if macromode:
-							if not macroisinclude:
-								if lasttoken == "include":
-									macroisinclude = True
-							if macroisinclude and lasttoken is not
 						lasttoken = ""
 				if comment:
 					if c == '*':
 						potentialcomment = True
 					if potentialcomment and c == '/':
 						comment = False
+
+	def generateSrcFiles():
+		headerfile = open("tests/ab/benchmark.h","w");
+		headerfile.write("#include \"test_includes.h\"")
+		for b in self.listOfBenchMarks:
+			headerfile.write("\n_benchmark_timer_t "+b+"(benchmark_timer_t t);")
+		headerfile.close()
+		headerfile = open("tests/ab/tests_"++".h","w")
+		headerfile.write("#include <autobuildpy/autotester>");
+		headerfile.write("#include \"benchmarks.h\"")
+		for t in self.listOfTests:
+			headerfile.write("\n_test_results_t "+t+"();")
+		headerfile.close()
+		main = open("tests/ab/tests_"+self.modulename+"_main.cpp","w")
+		main.write("include \"tests.h\"")
+		main.write("int main(int argc, char** argv) {")
+		main.write("\t_result_reporter_t rep;")
+		for t in self.listOfTests:
+			main.write("\t_report_results(rep,"+t+"());")
+		for b in self.listOfBenchMarks:
+			main.write("\t_report_results(rep,"+b+"());")
+		main.close();
+		for memtest in self.listOfValgrind:
+			main = open("tests/ab/valgrind/_"+self.modulename+"_"+memtest+".cpp")
+			main.write("#include \"../valgrind_"+self.modulename+".h\"")
+			main.write("int main(int argc, char** argv) {")
+			main.write("\t"+memtest+"();")
+			main.write("\treturn 0;")
+			main.write("}")
 def scan_testfile(file):
 	listOfTests = []
 	listOfBenchMarks = []
