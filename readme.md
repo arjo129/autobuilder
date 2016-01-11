@@ -1,3 +1,8 @@
 # Autobuild.py
 
-Autobuild.py is a c/c++ building and unit test framework. It automatically resolves dependencies just from a json configuration fileconfig.ab. It is equiped with unit testing facilities. This was born out of my frustration of using cmake and autotools. I love autotools workflows. I hate cmake. But what is most frustrating is that if I want to build a quick prototype or proof of concept in c++ I either have to use third rate ides (_ahem_ Xcode _cough_ _cough_) with complex configurations everytime I add a new library or I nneed to waste time writing cmake files or messing with autotools.  
+>All code must be compiled, from the first day of development, with all compiler warnings enabled at the most
+>pedantic setting available. All code must compile without warnings. All code must also be >checked daily with at least one,
+>but preferably more than one, strong static source code analyzer and should pass all analyses with zero warnings -- _JPL Coding standard_
+
+Autobuild.py is a build system that aims to make unit testing easy for C/C++ so that you're
+code can be compiled on Day 1. It is ins pired by go's simple but elegant unit testing framework.
