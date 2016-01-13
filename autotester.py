@@ -1,4 +1,20 @@
 import os
+
+def finalPass:
+	autotest_files = os.listdir("tests/ab")
+	headerfile = open("tests/tests.h","w")
+	valgrindscript = open("tests/run_valgrind.sh","w")
+	testsscript = open("tests/run_tests.sh","w")
+	for file in autotest_files:
+		fname = os.path.basename(file)
+		name,ext = os.path.splittext(fname)
+		if ext == ".h":
+			headerfile.write("#include \"ab/"+fname+"\")
+		if ext == ".c":
+			testsscript.write("./"+name)
+	headerfile.close()
+	valgrindscript.close()
+	testscript.close()
 class testmodule:
 	def __init__(self):
 		self.listOfTests = []
@@ -60,14 +76,11 @@ class testmodule:
 						comment = False
 
 	def generateSrcFiles():
-		headerfile = open("tests/ab/benchmark.h","w");
-		headerfile.write("#include \"test_includes.h\"")
+		headerfile = open("tests/ab/benchmark.h","w")
 		for b in self.listOfBenchMarks:
 			headerfile.write("\n_benchmark_timer_t "+b+"(benchmark_timer_t t);")
 		headerfile.close()
 		headerfile = open("tests/ab/tests_"++".h","w")
-		headerfile.write("#include <autobuildpy/autotester>");
-		headerfile.write("#include \"benchmarks.h\"")
 		for t in self.listOfTests:
 			headerfile.write("\n_test_results_t "+t+"();")
 		headerfile.close()
@@ -88,7 +101,7 @@ class testmodule:
 			main.write("\treturn 0;")
 			main.write("}")
 			main.close()
-			
+
 def scan_testfile(file):
 	listOfTests = []
 	listOfBenchMarks = []
