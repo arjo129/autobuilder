@@ -54,5 +54,6 @@ class configuration:
 		argparser.write("for i in \"$@\"\ndo")
 		argparser.write("case $i in")
 		argparser.write("-h|--help)\necho \"Autobuild.py generated script\"\n;;")
+		argparser.write("-D|--debug)\necho \"Turning debugging on\"\n;;")
 		argparser.write("esac")
 		argparser.close()
