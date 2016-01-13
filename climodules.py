@@ -8,7 +8,7 @@ def help():
 	print ""
 	print "To create a new project:\n\tautobuilder init"
 	print "To package as a nice gnu project:\n\tautobuilder export"
-	print "To run unit tests:\n\tautobuilder test"
+	print "To update unit tests:\n\tautobuilder test"
 def version():
 	print "0.0.1"
 def initNewProject():
