@@ -14,7 +14,8 @@ def version():
 def initNewProject():
 	schema = {"projectname": raw_input("Name Of Project:"),
 	"lisence": raw_input("Lisence type e.g MIT:"),
-	"author": raw_input("Author's name e.g Arjo Chakravarty <arjo129@gmail.com>:"))}
+	"author": raw_input("Author's name e.g Arjo Chakravarty <arjo129@gmail.com>:")
+	"targets": [ {"name":raw_input("Name of first target"),"type":raw_input("Type of output (static library, dynamic library, executable):")} ]}
 	try:
 		os.makedirs("src")
 	except OSError:
@@ -28,3 +29,5 @@ def initNewProject():
 			if not os.path.isdir("tests"):
 				raise
 		schema["tests"] = []
+def addTarget():
+	print "adding targets..."
