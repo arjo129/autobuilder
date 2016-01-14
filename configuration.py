@@ -14,6 +14,7 @@ class configuration:
 		self.programs = []
 		self.cliOptions = []
 		self.embeddedproj = false
+		self.pkg-config = "pkg-config"
 	def enableEmbedded():
 		self.embeddedproj = true
 	def addLibrary(lib, version):
@@ -24,7 +25,7 @@ class configuration:
 		argparser = open("configure.argparser","w")
 		for l,v in self.libraries:
 			configw.write( "function checkFor"+l+v+"{");
-			configw.write( l + "_version=`pkg-config --modversion "+l+"`")
+			configw.write( l + "_version=`"+self.pkg-config+" --modversion "+l+"`")
 			comp,ver = splitverno(v)
 			configw.write( "if [ \"$(perl -e '($x,$y)=@ARGV; print $x "+comp+" $y' "+l+"_version "+ver+")\" != \"1\" ]")
 			configw.write( "then" )
@@ -32,7 +33,7 @@ class configuration:
 			configw.write( "\techo \"FATAL: "+l+"-"+v+" not found\"" )#TODO: Provide further debugging as to why check failed
 			configw.write( "\texit")
 			configw.write( "fi" )
-			configw.write( l+"_cflags=`pkg-config --cflags "+l )
+			configw.write( l+"_cflags=`"+self.pkg-config+" --cflags "+l )
 			configw.write( "sed -i \"s|__"+l+"_cflags__|$"+l+"_cflags|g\" makefile.wrk" )
 			configw.write( l+"_linkflags=`pkg-config --libs "+l)
 			configw.write( "sed -i \"s|__"+l+"_libs__|$"+l+"_linkflags|g\" makefile.wrk" )
