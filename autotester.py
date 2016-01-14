@@ -11,7 +11,7 @@ def finalPass:
 		if ext == ".h":
 			headerfile.write("#include \"ab/"+fname+"\")
 		if ext == ".c":
-			testsscript.write("./"+name)
+			testsscript.write("./"+name+">> test_results.rslt")
 	headerfile.close()
 	valgrindscript.close()
 	testscript.close()
