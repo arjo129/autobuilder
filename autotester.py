@@ -14,7 +14,7 @@ def finalPass:
 			testsscript.write("./"+name+">> test_results.rslt")
 	headerfile.close()
 	valgrindscript.close()
-	testscript.close()
+	testsscript.close()
 class testmodule:
 	def __init__(self):
 		self.listOfTests = []
