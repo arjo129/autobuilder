@@ -21,10 +21,10 @@ class Project:
                 makefile.write(target.name+"-tests:"+target.name)
                 if target.dynamic:
                     for test in target.getTests():
-                        makefile.write("\t$(TARGETCC) "+test+" -Lbuild/dylibs/ -l"+target.name+".a")
+                        makefile.write("\t$(TARGETCC) "+test+" -Iinclude/ -Lbuild/dylibs/ -l"+target.name+".a")
                 else:
                     for test in target.getTests():
-                        makefile.write("\t$(TARGETCC) "+test+" -static -Lbuild/slibs/ -l"+target.name+".a -o build/tests/"+target.name+"/"+test".test")
+                        makefile.write("\t$(TARGETCC) "+test+" -Iinclude/ -static -Lbuild/slibs/ -l"+target.name+".a -o build/tests/"+target.name+"/"+test".test")
             else:
                 makefile.write(target.name+"-tests:")
                 if target.library:
