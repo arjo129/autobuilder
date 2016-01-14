@@ -1,6 +1,6 @@
 import configuration
 class Project:
-    __init__(self):
+    def __init__(self):
         self.projectname = ""
         self.lisence = ""
         self.author = ""
@@ -19,11 +19,15 @@ class Project:
             makefile.write(target.getPostScript())
             if not self.Embedded and target.library:
                 makefile.write(target.name+"-tests:"+target.name)
+                if target.dynamic
+                    makefile.write("\t$(TARGETCC) ")
             else:
                 makefile.write(target.name+"-tests:")
                 if target.library:
                     makefile.write("\t$(HOSTCC) "+target.getsources()+" "+target.getFlags())
                 else:
                     for test in target.getTests():
+                        target.disableMain()
                         makefile.write("\t$(HOSTCC) "+test+" "+target.getsources()+" "+target.getFlags())
+                        target.enableMain()
             makefile.write(target.name)
