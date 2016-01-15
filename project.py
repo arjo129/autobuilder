@@ -1,4 +1,4 @@
-import configuration
+import configuration,target
 class Project:
     def __init__(self):
         self.projectname = ""
