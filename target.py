@@ -1,8 +1,10 @@
 class target:
     def __init__(self):
         self.name = ""
+        self.libraries = []
     def addLibrary(name,version):
         #TODO: implement
+        self.libraries.add((name,version))
     def dep2str():
         return ""
     def getPreScript():
