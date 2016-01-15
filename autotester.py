@@ -27,12 +27,14 @@ class testmodule:
 		braces = 0
 		lastlinemmode = False
 		lasttoken = ""
+		potentialtest = False
+		potentialbenchmark = False
+		potentialmemtest = False
+		potentialcomment = False
+		keytypes = ["_test_results_t","_valgrind_results_t","_benchmark_timer_t"]
 		for line in open(file):
+			if lasttoken in keytypes:
 			inlinecomment = False
-			potentialtest = False
-			potentialbenchmark = False
-			potentialmemtest = False
-			potentialcomment = False
 			potentialmacro = False
 			for c in line:
 				if potentialcomment:
