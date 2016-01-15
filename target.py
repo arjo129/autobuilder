@@ -6,6 +6,7 @@ class target:
         self.tests = []
         self.library = False
         self.dynamic = True
+        self.mainenabled = True
         self.sources = []
         self.dependencies = []
     def addLibrary(name,version):
@@ -21,7 +22,11 @@ class target:
             deps += " "+dep
         return deps
     def getPreScript():
-        return ""
+        prescr = self.prescript
+        #TODO perform main removal
+        if self.mainenabled:
+            return prescr
+        return prescr
     def getPostScript():
         self.postScript = ""
         if not self.dynamic:
@@ -42,6 +47,8 @@ class target:
         return depstr
     def getTests():
         return ""
+    def findMain():
+
     def disableMain():
         pass
     def enableMain():
