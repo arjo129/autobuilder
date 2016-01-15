@@ -4,6 +4,8 @@ class target:
         self.name = ""
         self.libraries = []
         self.tests = []
+        self.library = False
+        self.dynamic = True
     def addLibrary(name,version):
         #TODO: implement
         self.libraries.add((name,version))
@@ -13,9 +15,11 @@ class target:
         self.tests.add(testmod)
     def dep2str():
         depstr = ""
+        if self.library and self.dynamic: depstr+= ""
+        if self.library and not self.dynamic: depstr+= ""
         for library,version in self.libraries:
             depstr += " __"+library+"_cflags__"
-            depstr += " __"+libraty+"_libs__"
+            depstr += " __"+library+"_libs__"
         return depstr
     def getPreScript():
         return ""
