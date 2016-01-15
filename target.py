@@ -12,7 +12,11 @@ class target:
         testmod.scan_testfile(fname)
         self.tests.add(testmod)
     def dep2str():
-        return ""
+        depstr = ""
+        for library,version in self.libraries:
+            depstr += " __"+library+"_cflags__"
+            depstr += " __"+libraty+"_libs__"
+        return depstr
     def getPreScript():
         return ""
     def getPostScript():
