@@ -1,10 +1,16 @@
+import autotester
 class target:
     def __init__(self):
         self.name = ""
         self.libraries = []
+        self.tests = []
     def addLibrary(name,version):
         #TODO: implement
         self.libraries.add((name,version))
+    def addTest(fname):
+        testmod = autotester.testmodule();
+        testmod.scan_testfile(fname)
+        self.tests.add(testmod)
     def dep2str():
         return ""
     def getPreScript():
