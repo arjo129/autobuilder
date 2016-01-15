@@ -1,9 +1,11 @@
 import autotester
+
 class target:
     def __init__(self):
         self.name = ""
         self.libraries = []
         self.tests = []
+        self.type = ""
         self.library = False
         self.dynamic = True
         self.mainenabled = True
