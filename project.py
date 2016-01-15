@@ -32,6 +32,6 @@ class Project:
                 else:
                     for test in target.getTests():
                         target.disableMain()
-                        makefile.write("\t$(HOSTCC) "+test+" "+target.getsources()+" "+target.getFlags())
+                        makefile.write("\t$(HOSTCC) "+test.filename+" "+target.getsources()+" "+target.getFlags())
                         target.enableMain()
             makefile.write(target.name)

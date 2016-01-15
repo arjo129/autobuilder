@@ -20,7 +20,9 @@ class testmodule:
 		self.listOfBenchMarks = []
 		self.includes = []
 		self.modulename = ""
+		self.filename =""
 	def scan_testfile(file):
+		self.filename = file
 		name = os.path.basename(file)
 		self.modulename = os.path.splittext(name)[0]
 		comment = false
