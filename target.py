@@ -24,7 +24,10 @@ class target:
     def getPreScript():
         return ""
     def getPostScript():
-        return ""
+        self.postScript = ""
+        if not self.dynamic:
+            self.postScript += "\nar" #TODO implement correct command
+        return self.postScript
     def getsources():
         return ""
     def getFlags():
