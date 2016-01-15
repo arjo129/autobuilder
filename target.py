@@ -6,6 +6,8 @@ class target:
         self.tests = []
         self.library = False
         self.dynamic = True
+        self.sources = []
+        self.dependencies = []
     def addLibrary(name,version):
         #TODO: implement
         self.libraries.add((name,version))
@@ -14,13 +16,10 @@ class target:
         testmod.scan_testfile(fname)
         self.tests.add(testmod)
     def dep2str():
-        depstr = ""
-        if self.library and self.dynamic: depstr+= ""
-        if self.library and not self.dynamic: depstr+= ""
-        for library,version in self.libraries:
-            depstr += " __"+library+"_cflags__"
-            depstr += " __"+library+"_libs__"
-        return depstr
+        deps = ""
+        for dep in dependencies
+            deps += " "+dep
+        return deps
     def getPreScript():
         return ""
     def getPostScript():
@@ -29,9 +28,18 @@ class target:
             self.postScript += "\nar" #TODO implement correct command
         return self.postScript
     def getsources():
-        return ""
+        src = ""
+        for source in sources:
+            src = " "+source
+        return src
     def getFlags():
-        return ""
+        depstr = ""
+        if self.library and self.dynamic: depstr+= ""
+        if self.library and not self.dynamic: depstr+= ""
+        for library,version in self.libraries:
+            depstr += " __"+library+"_cflags__"
+            depstr += " __"+library+"_libs__"
+        return depstr
     def getTests():
         return ""
     def disableMain():
