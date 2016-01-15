@@ -19,7 +19,8 @@ class configuration:
 		self.embeddedproj = true
 	def addLibrary(lib, version):
 		libObject = (lib,version)
-		self.libraries.add(libObject)
+		if lib not in self.libraries:
+			self.libraries.add(libObject)
 	def generate():
 		configw = open("configure.funcs","w")
 		argparser = open("configure.argparser","w")
