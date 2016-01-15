@@ -26,8 +26,8 @@ class testmodule:
 		comment = false
 		braces = 0
 		lastlinemmode = False
+		lasttoken = ""
 		for line in open(file):
-			lasttoken = ""
 			inlinecomment = False
 			potentialtest = False
 			potentialbenchmark = False
