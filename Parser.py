@@ -14,6 +14,7 @@ class Function:
         self.returnType = ""
         self.name = ""
         self.functionCalls = []
+        self.virtual = False
         self.docString = ""
 class Parser:
     def __init__(self):
@@ -37,4 +38,15 @@ class Parser:
                     lasttoken = ""
                 else:
                     lasttoken += ""
-            
+        #Step 2: detect token type
+        tokType = [None]*len(tokens)
+        for i in range(0,len(tokens)):
+            if i > 0:
+                if tokens[i] == "/" and tokens[i-1] == "/":
+                    tokType[i] = "inlinecomment"
+                    tokType[i-1] = "inlinecomment"
+                if tokType[i-1] == "inlinecomment":
+                    if tokens[i] == "\n":
+                        tokType[i] = "endl"
+                    else:
+                        tokType[i] = "inlinecomment"
