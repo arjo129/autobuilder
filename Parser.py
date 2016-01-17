@@ -8,6 +8,7 @@ class Class:
         self.private = []
         self.public = []
         self.docString = ""
+        self.virtual = False
 class Function:
     def __init__(self):
         self.arguments = []
@@ -42,6 +43,13 @@ class Parser:
         tokType = [None]*len(tokens)
         for i in range(0,len(tokens)):
             if i > 0:
+                if tokens[i] == "*" and tokens[i-1] == "/":
+                    tokType[i] = "comment"
+                    tokType[i-1] = "comment"
+                if tokens[i] == "/" and tokens[i-1] == "*" and tokType[i-1] == "comment":
+                    tokType[i] = "endcom"
+                if tokType[i-1] == "comment":
+                    tokType[i] = "comment"
                 if tokens[i] == "/" and tokens[i-1] == "/":
                     tokType[i] = "inlinecomment"
                     tokType[i-1] = "inlinecomment"
@@ -50,3 +58,6 @@ class Parser:
                         tokType[i] = "endl"
                     else:
                         tokType[i] = "inlinecomment"
+            if tokType[i] != "comment" or tokType != "inlinecomment":
+                if tokens[i].startswith "#":
+                    lik = 0
