@@ -35,7 +35,8 @@ class Parser:
             for c in line():
                 if c in set("{}[]()/<>.*+-=\|&*^% "):
                     tokens.push(lasttoken)
-                    tokens.push(c)
+                    if c != " ":
+                        tokens.push(c)
                     lasttoken = ""
                 else:
                     lasttoken += ""
