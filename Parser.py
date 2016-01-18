@@ -43,6 +43,7 @@ class Parser:
         tokType = [None]*len(tokens)
         for i in range(0,len(tokens)):
             if i > 0:
+                #This stuff is for comments
                 if tokens[i] == "*" and tokens[i-1] == "/":
                     tokType[i] = "comment"
                     tokType[i-1] = "comment"
@@ -59,5 +60,11 @@ class Parser:
                     else:
                         tokType[i] = "inlinecomment"
             if tokType[i] != "comment" or tokType != "inlinecomment":
+                # this is the macro
                 if tokens[i].startswith "#":
-                    lik = 0
+                    tokType[i] = "macro"
+                if tokType[i - 1] == "macro":
+                    if tokens[i] == "\n" and tokType[i-1] != "\":
+                        tokType[i] = "endmacro"
+                    else:
+                        tokType = "macro"
